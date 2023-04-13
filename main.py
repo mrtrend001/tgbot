@@ -11,7 +11,7 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
-    await message.answer('негрррр')
+    await message.answer('ok')
 
 
 @dp.message_handler(commands=['help'])
