@@ -16,7 +16,7 @@ from handlers.survey_fsm import (start_survey,
 
 load_dotenv()
 bot = Bot(token=os.getenv('BOT_TOKEN'))
-storage = MemoryStorage
+storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
 
 if __name__ == "__main__":
