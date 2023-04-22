@@ -1,10 +1,8 @@
 from aiogram import types
 
 
-kb = types.ReplyKeyboardMarkup()
-
-
 async def show_catergories(message: types.Message):
+    kb = types.ReplyKeyboardMarkup()
     kb.add(types.KeyboardButton("Пиццы"))
     kb.add(types.KeyboardButton("Адрес"))
     await message.answer(
@@ -18,6 +16,7 @@ async def address(message: types.Message):
 
 
 async def pizza(message: types.Message):
+    kb = types.ReplyKeyboardMarkup()
     kb.add(types.KeyboardButton("Сицилийская пицца (Pizza Siciliana)"))
     kb.add(types.KeyboardButton("Метровая пицца (Pizza al metro или Pizza alla Palla)"))
     kb.add(types.KeyboardButton("Римская пицца (Pizza Romana)"))
