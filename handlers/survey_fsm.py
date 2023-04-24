@@ -46,8 +46,8 @@ async def process_age(message: types.Message, state: FSMContext):
 
 async def process_gender(message: types.Message, state: FSMContext):
     data = await state.get_data()
-    print(data)
 
+    print(data, message.text, message.from_user.id)
     await Survey.next()
     await message.answer("Ваш инстаграм")
 
@@ -60,7 +60,7 @@ async def inst(message: types.Message, state: FSMContext):
     await Survey.next()
 
     kb = types.ReplyKeyboardMarkup()
-    kb.add("Мужской", "Женский")
+    kb.add("Мужчины", "Женшины")
     await message.answer("Кто вас интерисует?", reply_markup=kb)
 
 
