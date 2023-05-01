@@ -15,6 +15,11 @@ from handlers.survey_fsm import (start_survey,
                                  who_is_interested,
                                  Survey)
 
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+
+
 # load_dotenv()
 bot = Bot(token=config('BOT_TOKEN'))
 storage = MemoryStorage()
@@ -32,5 +37,3 @@ dp.register_message_handler(inst, state=Survey.inst)
 dp.register_message_handler(process_gender, state=Survey.gender)
 dp.register_message_handler(who_is_interested, state=Survey.who_is_interested)
 
-if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
