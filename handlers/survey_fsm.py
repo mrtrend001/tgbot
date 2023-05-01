@@ -1,6 +1,7 @@
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram import types
+from db.base import insert_survey
 
 
 class Survey(StatesGroup):
@@ -45,7 +46,8 @@ async def process_age(message: types.Message, state: FSMContext):
 
 
 async def process_gender(message: types.Message, state: FSMContext):
-    data = await state.get_data()
+    async with state.proxy() as data:
+        data['gender'] = message.text
 
     print(data, message.text, message.from_user.id)
     await Survey.next()
@@ -65,7 +67,9 @@ async def inst(message: types.Message, state: FSMContext):
 
 
 async def who_is_interested(message: types.Message, state: FSMContext):
-    data = await state.get_data()
+    async with state.proxy() as data:
+        data['who_is_interested'] = message.text
+        insert_survey(data)
 
     print(data, message.text, message.from_user.id)
     await message.answer("Спасибо за ваше время, которое вы уделили нам")

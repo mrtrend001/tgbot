@@ -20,21 +20,19 @@ def create_tables():
     bd.commit()
 
 
-def insert_survey(data, name, age, gender, inst, who_is_interested):
+def insert_survey(data):
     cursors.execute("""
-    INSERT INTO survey(data, name, age, gender, inst, who_is_interested)
-        VALUES (:name, :age, :gender, :inst, :who_is_interested),
-
+    INSERT INTO survey(name, age, gender, inst, who_is_interested)
+        VALUES (:name, :age, :gender, :inst, :who_is_interested)
     """, {
-        'name': data.get('name'),
-        'age': data.get('age'),
-        'gender': gender,
-        'inst': data.get('inst'),
-        'who_is_interested': who_is_interested
+        'name': data['name'],
+        'age': data['age'],
+        'gender': data['gender'],
+        'inst': data['inst'],
+        'who_is_interested': data['who_is_interested']
     })
     bd.commit()
 
 
 if __name__ == "__main__":
     create_tables()
-    insert_survey()

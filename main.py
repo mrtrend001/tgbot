@@ -1,6 +1,6 @@
 import os
 # from dotenv import load_dotenv
-from decouple import config
+from handlers.config import dp
 from aiogram.dispatcher.filters import Text
 from aiogram import Bot, Dispatcher, executor, types
 from handlers.shop import show_catergories
@@ -21,19 +21,18 @@ if __name__ == "__main__":
 
 
 # load_dotenv()
-bot = Bot(token=config('BOT_TOKEN'))
-storage = MemoryStorage()
-dp = Dispatcher(bot, storage=storage)
+# bot = Bot(('BOT_TOKEN'))
+# storage = MemoryStorage()
+# dp = Dispatcher(bot, storage=storage)
+    dp.register_message_handler(show_catergories, commands=['start'])
+    dp.register_message_handler(address, Text(equals="Адресс"))
+    dp.register_message_handler(pizza, Text(equals="Пиццы"))
 
-executor.start_polling(dp)
-dp.register_message_handler(show_catergories, commands=['start'])
-dp.register_message_handler(address, Text(equals="Адресс"))
-dp.register_message_handler(pizza, Text(equals="Пиццы"))
-
-dp.register_message_handler(start_survey, commands=['surv'])
-dp.register_message_handler(process_name, state=Survey.name)
-dp.register_message_handler(process_age, state=Survey.age)
-dp.register_message_handler(inst, state=Survey.inst)
-dp.register_message_handler(process_gender, state=Survey.gender)
-dp.register_message_handler(who_is_interested, state=Survey.who_is_interested)
+    dp.register_message_handler(start_survey, commands=['surv'])
+    dp.register_message_handler(process_name, state=Survey.name)
+    dp.register_message_handler(process_age, state=Survey.age)
+    dp.register_message_handler(inst, state=Survey.inst)
+    dp.register_message_handler(process_gender, state=Survey.gender)
+    dp.register_message_handler(who_is_interested, state=Survey.who_is_interested)
+    executor.start_polling(dp, skip_updates=True)
 
