@@ -1,17 +1,14 @@
 import sqlite3
 from pathlib import Path
 
-
-def init_db():
-    DB_NAME = 'db.sqlite'  # .sqlite, .db
-    DB_PATH = Path(__file__).parent.parent
-    db = sqlite3.connect(DB_PATH / DB_NAME)
-    cursor = db.cursor()
-    global db, cursor
+DB_NAME = 'db.sqlite'  # .sqlite, .db
+DB_PATH = Path(__file__).parent.parent
+bd = sqlite3.connect(DB_PATH / DB_NAME)
+cursors = bd.cursor()
 
 
 def create_tables():
-    cursor.execute("""
+    cursors.execute("""
     CREATE TABLE IF NOT EXISTS survey(
         survey_id INTEGER PRIMARY KEY,
         name TEXT,
@@ -20,11 +17,11 @@ def create_tables():
         inst TEXT,
         who_is_interested TEXT
     )""")
-    db.commit()
+    bd.commit()
 
 
 def insert_survey(data, name, age, gender, inst, who_is_interested):
-    cursor.execute("""
+    cursors.execute("""
     INSERT INTO survey(data, name, age, gender, inst, who_is_interested)
         VALUES (:name, :age, :gender, :inst, :who_is_interested),
 
@@ -35,10 +32,9 @@ def insert_survey(data, name, age, gender, inst, who_is_interested):
         'inst': data.get('inst'),
         'who_is_interested': who_is_interested
     })
-    db.commit()
+    bd.commit()
 
 
 if __name__ == "__main__":
-    init_db()
     create_tables()
     insert_survey()

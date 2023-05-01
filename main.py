@@ -1,5 +1,6 @@
 import os
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
+from decouple import config
 from aiogram.dispatcher.filters import Text
 from aiogram import Bot, Dispatcher, executor, types
 from handlers.shop import show_catergories
@@ -14,18 +15,15 @@ from handlers.survey_fsm import (start_survey,
                                  who_is_interested,
                                  Survey)
 
-load_dotenv()
-bot = Bot(token=os.getenv('BOT_TOKEN'))
+# load_dotenv()
+bot = Bot(token=config('BOT_TOKEN'))
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
 
-if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
-
+executor.start_polling(dp)
 dp.register_message_handler(show_catergories, commands=['start'])
 dp.register_message_handler(address, Text(equals="Адресс"))
 dp.register_message_handler(pizza, Text(equals="Пиццы"))
-
 
 dp.register_message_handler(start_survey, commands=['surv'])
 dp.register_message_handler(process_name, state=Survey.name)
@@ -34,5 +32,5 @@ dp.register_message_handler(inst, state=Survey.inst)
 dp.register_message_handler(process_gender, state=Survey.gender)
 dp.register_message_handler(who_is_interested, state=Survey.who_is_interested)
 
-
-executor.start_polling(dp)
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
