@@ -1,12 +1,10 @@
-import os
 # from dotenv import load_dotenv
-from handlers.config import dp
+from config import dp
 from aiogram.dispatcher.filters import Text
-from aiogram import Bot, Dispatcher, executor, types
+from aiogram import executor
 from handlers.shop import show_catergories
 import logging
 from handlers.shop import pizza, address
-from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from handlers.survey_fsm import (start_survey,
                                  process_name,
                                  process_age,
