@@ -38,15 +38,7 @@ def insert_survey(data):
         'who_is_interested': data['who_is_interested']
     })
     db.commit()
-    cursor.execute("""CREATE TABLE IF NOT EXISTS products(
-    survey_id INTEGER PRIMARY KEY,
-        name TEXT,
-        age INTEGER,
-        gender TEXT,
-        inst TEXT,
-        photo TEXT
-       )""")
-    db.commit()
+
 
 
 def delete_products():
@@ -67,7 +59,7 @@ def get_products():
     return data.fetchall()
 
 
-def insert_survey(data, gender, user_id):
+def insert_survey(data):
     cursor.execute("""
     INSERT INTO survey(name, age, gender, user_id)
         VALUES ('Daniel', 19, 'male', 12312),
@@ -78,17 +70,17 @@ def insert_survey(data, gender, user_id):
         VALUES (:name, :age, :gender, :user_id),
 
     """, {
-        'name': data.get('name'),
-        'age': data.get('age'),
-        'gender': gender,
-        'user_id': user_id
+        'name': data['name'],
+        'age': data['age'],
+        'gender': data['gender'],
+        'user_id': data['user_id']
     })
     db.commit()
 
 
 if __name__ == "__main__":
     create_tables()
-    insert_survey()
+    insert_products()
     get_products()
 
 
