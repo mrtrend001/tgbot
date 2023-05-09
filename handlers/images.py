@@ -9,3 +9,4 @@ async def pic(message: types.Message):
     image = random.choice(images)
     with open(f"images/{image}", "rb") as f:
         await Bot.send_photo(chat_id=message.from_user.id, photo=f)
+
